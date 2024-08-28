@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .name {
+            display: flex;
+             justify-content: center; 
+             align-items: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        
+        }
+        .slide {
+            display: none; 
+        }
+        .slide.active {
+            display: block;
+            padding: 10px 20px;
+        }
+        img {
+            
+            border: 5px solid rgb(44, 43, 43);
+            border-radius: 42px;
+            width: 500px; 
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+        }
+
+        .next, .prev {
+            background-color: rgb(33, 33, 33);
+            border: 2px solid rgb(44, 43, 43);
+            border-radius: 8px;
+            width: 200px;
+            padding: 5px 2px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            color: #fff;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: #c79936;
+        }
+
+        .dots {
+            position: absolute;
+            padding: 20px;
+            right: 42%;
+            display: flex;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="name">Капибарья жизнь</h1>
+    
+    <div class="sliderContainer">
+        
+
+        <div class="slide active" ><img src="./img/1.jpg" alt="png1">
+        </div>
+
+        <div class="slide" ><img src='./img/2.jpg' alt="png2">
+        </div>
+
+        <div class="slide" ><img src='./img/3.jpg' alt="png3">
+        </div>
+        
+        <div class="slide" ><img src='./img/4.jpg' alt="png4">
+        </div>
+        
+        <div class="slide" ><img src='./img/6.jpg' alt="png5">
+        </div>
+        
+        <div class="slide" ><img src='./img/5.jpg' alt="png6">
+        </div>
+     
+        <button class="next">Следующее изображение</button>
+        <button class="prev">Предыдущее изображение</button>
+        
+        <div class="dots">
+            <span class="dot active" data-slide="1"><p>1</p></span>
+            <span class="dot" data-slide="2"><p>2</p></span>
+            <span class="dot" data-slide="3"><p>3</p></span>
+            <span class="dot" data-slide="4"><p>4</p></span>
+            <span class="dot" data-slide="5"><p>5</p></span>
+            <span class="dot" data-slide="6"><p>6</p></span>
+            
+          </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const dots = document.querySelectorAll('.dot');
+
+        let currentSlide = 0;
+        
+      
+
+        function showSlide(n) {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                slide.style.display = 'none';
+                if (index === n) {
+                    slide.classList.add('active');
+                slide.style.display = 'block';
+               
+                dots.forEach(dot => {
+                    dot.classList.remove('active');
+                    dots[currentSlide].classList.add('active');
+                });
+           
+                }
+            });
+            currentSlide = n;
+        }
+    
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+    
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+        showSlide(parseInt(dot.dataset.slide) - 1);
+            });
+        });
+    
+       
+    </script>
+    
+
+        
+</body>
+</html>
